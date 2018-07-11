@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_TRIPS, TRIPS_LOADING } from './types';
+import { GET_TRIPS, ADD_TRIP, DELETE_TRIP, TRIPS_LOADING } from './types';
 
 export const getTrips = () => dispatch => {
 	dispatch(setTripsLoading());
@@ -10,6 +10,28 @@ export const getTrips = () => dispatch => {
 				type: GET_TRIPS,
 				payload: res.data
 			}));
+};
+
+export const addTrip = (trip) => dispatch => {
+	axios
+		.post('/api/trips', trip)
+		.then(res =>
+			dispatch({
+				type: ADD_TRIP,
+				payload: res.data
+			})
+		);
+};
+
+export const deleteTrip = (id) => dispatch => {
+	axios
+		.delete(`/api/trips/${id}`)
+		.then(
+			dispatch({
+				type: DELETE_TRIP,
+				payload: id
+			})
+		);
 };
 
 export const setTripsLoading = () => {

@@ -1,35 +1,47 @@
 import React, { Component } from 'react';
-import { ListGroup, ListGroupItem } from 'reactstrap';
+import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { connect } from 'react-redux';
-import { getTrips } from '../actions/tripActions';
+import { getTrips, deleteTrip } from '../actions/tripActions';
 import PropTypes from 'prop-types';
 
 import './css/Trips.css';
 
 class Trips extends Component {
+
 	componentDidMount() {
 		this.props.getTrips();
 	}
 
+	onDeleteClick = (id) => {
+		this.props.deleteTrip(id);
+	}
+
 	render() {
 		const { trips } = this.props.trip;
+		trips.forEach(trip => {
+			trip.date = new Date(trip.date);
+		});
 
 		return (
-			<div>
+			<Container>
 				<h2>Trips</h2>
 				<ListGroup className="group">
 					{trips.map(({ _id, skipper, date }) => (
-						<ListGroupItem className="justify-content-between">
-							<h3>
-								{skipper}
-							</h3>
-							<p>
-								{date}
-							</p>
+						<ListGroupItem
+							className="justify-content-between"
+							key={_id}>
+							<Button
+								className="remove-btn float-right"
+								color="danger"
+								size="small"
+								onClick={this.onDeleteClick.bind(this, _id)}
+							>&times;</Button>
+							<h3>{skipper}</h3>
+							<p>{`${date.getHours()}:${date.getMinutes()}`}</p>
 						</ListGroupItem>
 					))}
 				</ListGroup>
-			</div>
+			</Container>
 		);
 	}
 }
@@ -43,4 +55,4 @@ const mapStateToProps = (state) => ({
 	trip: state.trip
 });
 
-export default connect(mapStateToProps, { getTrips })(Trips);
+export default connect(mapStateToProps, { getTrips, deleteTrip })(Trips);

@@ -1,4 +1,4 @@
-import { GET_TRIPS, TRIPS_LOADING } from '../actions/types';
+import { GET_TRIPS, ADD_TRIP, TRIPS_LOADING, DELETE_TRIP } from '../actions/types';
 
 const initialState = {
 	trips: [],
@@ -12,6 +12,16 @@ export default function (state = initialState, action) {
 			...state,
 			trips: action.payload,
 			loading: false
+		};
+	case ADD_TRIP:
+		return {
+			...state,
+			trips: [action.payload, ...state.trips]
+		};
+	case DELETE_TRIP:
+		return {
+			...state,
+			trips: state.trips.filter(trip => trip._id !== action.payload)
 		};
 	case TRIPS_LOADING:
 		return {
