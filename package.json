@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "dev": "concurrently \"nodemon server\" \"npm start --prefix client\"",
+    "start": "node server.js",
+    "dev": "concurrently \"node server.js\" \"npm start --prefix client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "Elis Jones",
@@ -21,6 +21,5 @@
   },
   "devDependencies": {
     "nodemon": "^1.17.5"
-  },
-  "proxy": "https://localhost:5000"
+  }
 }

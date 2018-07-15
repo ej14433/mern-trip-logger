@@ -3,6 +3,7 @@ import './App.css';
 
 import Header from './components/Header';
 import TripModal from './components/TripModal';
+import SearchModal from './components/SearchModal';
 import Trips from './components/Trips';
 
 import { Provider } from 'react-redux';
@@ -14,7 +15,8 @@ class App extends Component {
 			<Provider store={store}>
 				<div className="App">
 					<Header />
-					<TripModal buttonLabel="Add Trip" />
+					<TripModal />
+					<SearchModal />
 					<Trips />
 				</div>
 			</Provider>

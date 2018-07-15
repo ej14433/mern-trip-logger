@@ -27,7 +27,17 @@ router.get('/', (req, res) => {
 		.then(trips => res.json(trips));
 });
 
-// @route DELET api/trips
+// @route GET api/trips
+// @desc  Search by date
+// @access public
+router.get('/search', (req, res) => {
+	console.log(req.query.date);
+
+	Trip.find({ date: new Date(req.query.date) })
+		.then(trips => res.json(trips));
+});
+
+// @route DELETE api/trips
 // @desc  Delete a trip
 // @access public
 router.delete('/:id', (req, res) => {
@@ -35,5 +45,6 @@ router.delete('/:id', (req, res) => {
 		.then(trip => trip.remove().then(() => res.json({ success: true })))
 		.catch(err => res.status(404).json({ success: false }));
 });
+
 
 module.exports = router;

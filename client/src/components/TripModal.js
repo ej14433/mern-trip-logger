@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
 	Button,
 	Modal,
@@ -15,11 +15,11 @@ import { addTrip } from '../actions/tripActions';
 
 import './css/Modal.css';
 
-class TripModal extends React.Component {
+class TripModal extends Component {
 	state = {
 		modal: false,
 		skipper: 'Elis',
-		time: ''
+		date: ''
 	}
 
 	toggle = () => {
@@ -38,7 +38,7 @@ class TripModal extends React.Component {
 		e.preventDefault();
 		const newTrip = {
 			skipper: this.state.skipper,
-			time: this.state.time
+			date: this.state.date
 		};
 		this.props.addTrip(newTrip);
 		this.toggle();
@@ -47,12 +47,18 @@ class TripModal extends React.Component {
 	render() {
 		return (
 			<div>
-				<Button className="margin-2" color="secondary" onClick={this.toggle}>{this.props.buttonLabel}</Button>
+				<Button
+					className="margin-2 float-right"
+					color="secondary"
+					onClick={this.toggle}
+				>
+					Add Trip
+				</Button>
 				<Modal
 					isOpen={this.state.modal}
 					toggle={this.toggle}
 				>
-					<ModalHeader toggle={this.toggle}>Add trip</ModalHeader>
+					<ModalHeader toggle={this.toggle}>Add Trip</ModalHeader>
 					<ModalBody>
 						<Form onSubmit={this.onSubmit}>
 							<FormGroup>
@@ -68,11 +74,11 @@ class TripModal extends React.Component {
 									<option>John</option>
 								</Input>
 							</FormGroup>
-							{/* <FormGroup>
-								<Label for="date">Date</Label>
-								<Input type="date" name="date" id="date" placeholder="Date" />
-							</FormGroup>
 							<FormGroup>
+								<Label for="date">Date</Label>
+								<Input type="date" name="date" id="date" placeholder="Date" onChange={this.onChange} />
+							</FormGroup>
+							{/* <FormGroup>
 								<Label for="time">Time</Label>
 								<Input type="time" name="time" id="time" />
 							</FormGroup> */}

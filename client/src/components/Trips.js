@@ -9,7 +9,7 @@ import './css/Trips.css';
 class Trips extends Component {
 
 	componentDidMount() {
-		this.props.getTrips();
+		// this.props.getTrips();
 	}
 
 	onDeleteClick = (id) => {
@@ -37,7 +37,7 @@ class Trips extends Component {
 								onClick={this.onDeleteClick.bind(this, _id)}
 							>&times;</Button>
 							<h3>{skipper}</h3>
-							<p>{`${date.getHours()}:${date.getMinutes()}`}</p>
+							<p>{`${date.getDate()}/${date.getMonth() + 1}`}</p>
 						</ListGroupItem>
 					))}
 				</ListGroup>

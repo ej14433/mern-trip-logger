@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_TRIPS, ADD_TRIP, DELETE_TRIP, TRIPS_LOADING } from './types';
+import { GET_TRIPS, ADD_TRIP, DELETE_TRIP, TRIPS_LOADING, GET_TRIPS_BY_DATE } from './types';
 
 export const getTrips = () => dispatch => {
 	dispatch(setTripsLoading());
@@ -8,6 +8,17 @@ export const getTrips = () => dispatch => {
 		.then(res =>
 			dispatch({
 				type: GET_TRIPS,
+				payload: res.data
+			}));
+};
+
+export const getTripsByDate = (date) => dispatch => {
+	dispatch(setTripsLoading());
+	axios
+		.get(`api/trips/search?date=${date}`)
+		.then(res =>
+			dispatch({
+				type: GET_TRIPS_BY_DATE,
 				payload: res.data
 			}));
 };
